@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_02_200924) do
+ActiveRecord::Schema.define(version: 2020_04_02_201140) do
+
+  create_table "apartment_characteristics", force: :cascade do |t|
+    t.integer "apartment_id"
+    t.integer "characteristic_id"
+    t.integer "quantity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "apartments", force: :cascade do |t|
     t.string "unit"
