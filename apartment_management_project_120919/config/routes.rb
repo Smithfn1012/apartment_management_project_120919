@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
-  devise_for :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  get 'landlords/:id/can_house_more_than_3_tenants', :to => 'landlords#can_house_more_than_3_tenants', :as => :can_house_more_than_3_tenants
+  get '/landlords/all', :to => 'landlords#all', :as => :all
+  post 'landlords/:id/buildings/new', :to => 'buildings#create'
+
+  resources :landlords do
+  	resources :buildings do 
+  	  resources :apartments, only: [:can_house_more_than_3_tenants]
+    end
+  end
+  resources :tenants
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
+  root 'home#index'
 end
